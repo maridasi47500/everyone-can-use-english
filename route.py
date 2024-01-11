@@ -2,13 +2,8 @@ from directory import Directory
 from render_figure import RenderFigure
 from myscript import Myscript
 from user import User
+from house import House
 from myrecording import Myrecording
-from gagnant import Gagnant
-from song import Song
-from cado import Cado
-from lyric import Lyric
-from artist import Artist
-from jeu import Jeu
 
 
 from song import Song
@@ -28,11 +23,7 @@ class Route():
         self.dbScript=Myscript()
         self.dbRecording=Myrecording()
         self.dbSong=Song()
-        self.dbJeu=Jeu()
-        self.dbArtist=Artist()
-        self.dbLyric=Lyric()
-        self.dbGagnant=Gagnant()
-        self.dbCado=Cado()
+        self.dbHouse=House()
         self.render_figure=RenderFigure(self.Program)
         self.getparams=("id",)
     def set_post_data(self,x):
@@ -83,8 +74,6 @@ class Route():
         self.render_figure.set_param("scripts",hi)
         return self.render_figure.render_figure("welcome/chat.html")
     def welcome(self,search):
-        hi=self.dbScript.getall()
-        self.render_figure.set_param("scripts",hi)
         return self.render_figure.render_figure("welcome/index.html")
     def audio_save(self,search):
         myparam=self.get_post_data()(params=("recording",))
@@ -102,6 +91,11 @@ class Route():
         a=self.scriptpython(hi["name"]).lancer()
         return self.render_some_json("welcome/monscript.json")
 
+    def new1(self,search):
+        myparam=self.get_post_data()(params=("name","pic",))
+        x=self.dbHouse.create(myparam)
+        print(hey)
+        return self.render_some_json("welcome/mypic.json")
     def monscript(self,search):
         myparam=self.get_post_data()(params=("name","content",))
         hey=self.dbCommandline.create(myparam)
@@ -114,11 +108,11 @@ class Route():
         return self.render_figure.render_figure("welcome/radio.html")
     def hello(self,search):
         print("hello action")
+        self.render_figure.set_param("houses",self.dbHouse.getall())
         return self.render_figure.render_figure("welcome/index.html")
     def passage(self,myscrit):
         filename=myscrit["title"][0].replace(".mp3","").split("/")[-1]
         current_dateTime=datetime.now()
-        song=Song().save_heure_passage((filename,current_dateTime))
         self.render_figure.set_param("title", song["title"])
         self.render_figure.set_param("artist", song["artist"])
         self.render_figure.set_param("filename", song["filename"])
@@ -130,7 +124,6 @@ class Route():
         filename=mylist[k]
         print("filename =",filename)
         self.render_figure.set_param("filename", "/uploads/"+filename)
-        song=Song().get_song((filename.replace(".mp3",""),))
         self.render_figure.set_param("title", song["title"])
         self.figure.set_param("artist", song["artist"])
         self.render_some_json(Fichier("./welcome","chansons.json").lire())
@@ -155,6 +148,8 @@ class Route():
     def myusers(self,params={}):
         self.render_figure.set_param("users",User().getall())
         return self.render_figure.render_figure("user/users.html")
+    def mypics(self,params={}):
+        return self.render_figure.render_figure("fish/fishes.html")
     def update_user(self,params={}):
         myparam=self.post_data(self.getparams)
         self.user=self.dbUsers.update(params)
@@ -178,7 +173,6 @@ class Route():
         myparam=self.get_post_data()(params=("title","artist","file","lyric"))
 
 
-        hey=self.dbSong.create(myparam)
         return self.render_some_json("welcome/create.json")
     def getlyrics(self,params={}):
         getparams=("id",)
@@ -187,7 +181,6 @@ class Route():
         myparam=self.get_this_get_param(getparams,params)
         print("my param :",myparam)
         try:
-          hey=self.dbLyric.getbysongid(myparam["id"])
           print("hey",hey)
           if not hey:
             hey=[]
@@ -203,7 +196,6 @@ class Route():
         myparam=self.get_this_get_param(getparams,params)
         print("my param :",myparam)
         try:
-          hey=self.dbSong.getbyartistid(myparam["id"])
           print("hey",hey)
           if not hey:
             hey=[]
@@ -214,25 +206,21 @@ class Route():
         return self.render_some_json("welcome/songs.json")
     def photoartist(self,params={}):
         myparam=self.get_post_data()(params=("pic","id",))
-        hey=self.dbArtist.update(myparam)
         return self.render_some_json("welcome/create.json")
     def cadeau(self,params={}):
         myparam=self.get_post_data()(params=("pic","name"))
-        hey=self.dbCado.create(myparam)
         return self.render_some_json("welcome/create.json")
     def jouerjeux(self,search):
         return self.render_figure.render_figure("welcome/jeu.html")
     def monjeu(self,search):
         myparam=self.get_post_data()(params=("lyric_id",))
 
-        hi=self.dbJeu.createwithlyric(myparam)
         print(hi)
         self.render_figure.set_param("redirect","/jouerjeux")
         return self.render_some_json("welcome/redirect.json")
     def gagnant(self,search):
         myparam=self.get_post_data()(params=("name","pic",))
 
-        hi=self.dbGagnant.create(myparam)
         print(hi)
         return self.render_some_json("welcome/create.json")
 
@@ -276,6 +264,9 @@ class Route():
         if path and path.endswith("png"):
             self.Program=Pic(path)
             self.Program.set_path("./")
+        elif path and path.endswith("jpeg"):
+            self.Program=Pic(path)
+            self.Program.set_path("./")
         elif path and path.endswith("gif"):
             self.Program=Pic(path)
             self.Program.set_path("./")
@@ -295,6 +286,9 @@ class Route():
             path=path.split("?")[0]
             print("link route ",path)
             ROUTES={
+                    '^/maison/(\d+)$': self.mypics,
+                    '^/mypics$': self.mypics,
+                    '^/new1$': self.new1,
                     '^/creejeu$': self.monjeu,
                     '^/joueraujeu$': self.joueraujeu,
                     '^/jouerjeux$': self.jouerjeux,
