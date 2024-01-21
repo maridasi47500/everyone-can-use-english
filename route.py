@@ -2,11 +2,10 @@ from directory import Directory
 from render_figure import RenderFigure
 from myscript import Myscript
 from user import User
-from house import House
 from myrecording import Myrecording
+from program import Myprogram
 
 
-from song import Song
 from mypic import Pic
 from javascript import Js
 from stylesheet import Css
@@ -21,9 +20,8 @@ class Route():
         self.Program.set_path("./")
         self.mysession={"notice":None,"email":None,"name":None}
         self.dbScript=Myscript()
+        self.execProgram=Myprogram()
         self.dbRecording=Myrecording()
-        self.dbSong=Song()
-        self.dbHouse=House()
         self.render_figure=RenderFigure(self.Program)
         self.getparams=("id",)
     def set_post_data(self,x):
@@ -93,7 +91,7 @@ class Route():
 
     def new1(self,search):
         myparam=self.get_post_data()(params=("name","pic",))
-        x=self.dbHouse.create(myparam)
+        #x=self.dbHouse.create(myparam)
         print(hey)
         return self.render_some_json("welcome/mypic.json")
     def monscript(self,search):
@@ -106,9 +104,14 @@ class Route():
         print("hello action")
         self.render_figure.set_param("enregistrer",True)
         return self.render_figure.render_figure("welcome/radio.html")
+    def elibrary(self,search):
+        print("hello action")
+        #self.render_figure.set_param("houses",self.dbHouse.getall())
+        self.execProgram(["sh","monscrit/elibrary.sh"])
+        return self.render_figure.render_figure("welcome/index.html")
     def hello(self,search):
         print("hello action")
-        self.render_figure.set_param("houses",self.dbHouse.getall())
+        #self.render_figure.set_param("houses",self.dbHouse.getall())
         return self.render_figure.render_figure("welcome/index.html")
     def passage(self,myscrit):
         filename=myscrit["title"][0].replace(".mp3","").split("/")[-1]
@@ -148,8 +151,8 @@ class Route():
     def myusers(self,params={}):
         self.render_figure.set_param("users",User().getall())
         return self.render_figure.render_figure("user/users.html")
-    def mypics(self,params={}):
-        return self.render_figure.render_figure("fish/fishes.html")
+    def pic(self,params={}):
+        return self.render_figure.render_figure("welcome/pic.html")
     def update_user(self,params={}):
         myparam=self.post_data(self.getparams)
         self.user=self.dbUsers.update(params)
@@ -286,42 +289,8 @@ class Route():
             path=path.split("?")[0]
             print("link route ",path)
             ROUTES={
-                    '^/maison/(\d+)$': self.mypics,
-                    '^/mypics$': self.mypics,
-                    '^/new1$': self.new1,
-                    '^/creejeu$': self.monjeu,
-                    '^/joueraujeu$': self.joueraujeu,
-                    '^/jouerjeux$': self.jouerjeux,
-                    '^/getsongs$': self.getsongs,
-                    '^/getlyrics$': self.getlyrics,
-                    '^/photoartist$': self.photoartist,
-                    '^/new$': self.nouveau,
-                    '^/gagnant$': self.gagnant,
-                    '^/chanson$': self.chanson,
-                    '^/cadeau$': self.cadeau,
-                    '^/lancerscript$': self.lancerscript,
-                    '^/allscript$': self.allscript,
-                    '^/welcome$': self.welcome,
-                    '^/chat$': self.chat,
-                    '^/signin$': self.signin,
-                    '^/audio_save$': self.audio_save,
-                    '^/recordsomething$': self.enregistrer,
-                    r"^/songs/jouerunechanson$":self.jouerchanson,
-                    r"^/songs/playmusique1$":self.jouerchanson,
-                    r"^/songs/playmusique$":self.jouerchanson,
-                    '^/logmeout$':self.logout,
-                                        '^/save_user$':self.save_user,
-                                                            '^/update_user$':self.update_user,
-                    r"^/songs/musique$":self.jouerchanson,
-                    r"^/passage$":self.passage,
-                    '^/monscript$': self.monscript,
-                    "^/seeuser/([0-9]+)$":self.seeuser,
-                                        "^/edituser/([0-9]+)$":self.edit_user,
-                                                            "^/deleteuser/([0-9]+)$":self.delete_user,
-                                                                                '^/login$':self.login,
-
-                                                                                                    '^/users$':self.myusers,
-                    '^/$': self.hello
+                    '^/$': self.hello,
+                    '^/elibrary$': self.elibrary,
 
                     }
             REDIRECT={"/save_user": "/welcome"}
@@ -338,7 +307,7 @@ class Route():
 
                    except Exception:  
                        self.Program.set_html(html="<p>une erreur s'est produite "+str(traceback.format_exc())+"</p><a href=\"/\">retour à l'accueil</a>")
-                   self.Program.redirect_if_not_logged_in()
+                   #self.Program.redirect_if_not_logged_in()
                    return self.Program
                else:
                    self.Program.set_html(html="<p>la page n'a pas été trouvée</p><a href=\"/\">retour à l'accueil</a>")

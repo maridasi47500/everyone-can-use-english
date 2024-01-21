@@ -1,5 +1,6 @@
 $(function(){
-$('.carousel').carousel();
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 $('span.myscript').on('click', function () {
   if (window.filesize > 1024*5) {
     alert('max upload size is 5k');

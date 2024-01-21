@@ -1,21 +1,16 @@
-# bienvenue dans radio
-- premiere radio
-- comme à beverly hills
-- faire 
-```
-```
+# bienvenue dans elibrary
+- every1 can use english
 - lancer:
-
-```
-```
-$ python3 connect4.py
-```
-et
+- ajouter des mot 
+- ajouter des texte
+- enregistrer des texte
+- creer des macros libreoffice 
+- faire une bibliotheque electronique 
 ```
 $ sh mysite.sh
 ```
-- visit http://localhost:8081
+- visit http://localhost:3000
 
 
 
-# beverly-hills
+# everyone-can-use-english
