@@ -1,0 +1,29 @@
+
+<h1><%=book['author']%> - <%=book['title']%></h1>
+<table>
+	<tr>
+<td>Recherchez le titre du livre sur Google.</td>
+<td><a href="https://www.google.com/search?client=firefox-b-d&q=<%=book["title"].replace(" ","+")%>">rechercher</a></td>
+	</tr>
+	<tr>
+<td>le nom de l'auteur sur Google.</td>
+<td><a href="https://www.google.com/search?client=firefox-b-d&q=<%=book["author"].replace(" ","+")%>">rechercher</a></td>
+	</tr>
+	<tr>
+<td>Spécifiez le format de fichier dans la recherche Google</td>
+<td><select id="format_fichier">
+		<option value=""></option>
+		<option value="djvu">djvu</option>
+		<option value="chm">chm</option>
+		<option value="pdf">pdf</option>
+	</select><a href="https://www.google.com/search?client=firefox-b-d&q=<%=book["title"].replace(" ","+")%>" onclick="this.href+='+filetype%3A'+format_fichier.value;window.location=this.href;return false;">rechercher</a></td>
+	</tr>
+	<tr>
+<td>Accédez à Google Livres pour voir s'il existe une version pouvant être consultée directement</td>
+<td><a href="https://www.google.com/search?tbm=bks&q=<%=book["author"].replace(" ","+")%>+<%=book["title"].replace(" ","+")%>">rechercher</a></td>
+	</tr>
+	<tr>
+		<td>chercher wikipedia</td>
+<td><a href="https://fr.wikipedia.org/w/index.php?search=<%=book["author"].replace(" ","+")%>+<%=book["title"].replace(" ","+")%>&title=Spécial:Recherche&profile=advanced&fulltext=1&ns0=1">rechercher</a></td>
+	</tr>
+</table>

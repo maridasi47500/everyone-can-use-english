@@ -1,6 +1,8 @@
 <h1>tous les livres</h1>
 <a id="ajouter_sth" href="javascript:void(0)">Ajouter 1 livre</a>
-<div id="overlaynew"><div id="text"><span class="close">X</span>formulaire </div></div>
+<div id="overlaynew"><div id="text"><span class="close">X</span>formulaire
+		<%=Fichier("./book","form_new_book.html").lire()%>
+	</div></div>
 <ul>
 <%=render_collection(collection=params['books'], partial='book/_book.html', as_='book')%>
 </ul>

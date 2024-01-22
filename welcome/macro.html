@@ -1,0 +1,9 @@
+<h1>toutes les macros</h1>
+<p>sendkeys ça sert pour envoyer les mots dans 1 application de dictionnaire local dans 1 macro dans microsoft word/libreoffice</p>
+<a id="ajouter_sth" href="javascript:void(0)">Ajouter 1 macro</a>
+<div id="overlaynew"><div id="text"><span class="close">X</span>formulaire
+		                <%=Fichier("./macro","form_new_macroword.html").lire()%>
+				        </div></div>
+					<ul>
+<%=render_collection(collection=params['macros'], partial='welcome/_macro.html', as_='macro')%>
+					</ul>

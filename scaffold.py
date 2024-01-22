@@ -20,6 +20,12 @@ columns="("
 values="("
 myparam=","
 items=sys.argv
+formulaire="<form method=\"post\" action=\"/create_"+items[1]+"\">"
+myitem="<div class=\"my_"+items[1]+"\">"
+pageindex="<h1>tous les "+items[1]+"</h1>"
+pageindex="<ul>"
+pageindex="<%=render_collection(collection=params['{hey}'], partial='{hey}/_{hey}.html', as_='book')%>".format(hey=items[1])
+pageindex="</ul>"
 while index < (len(items)):
 
     try:
@@ -31,8 +37,22 @@ while index < (len(items)):
     index += 1
     columns+="{paramname}{myparam}".format(myparam=myparam,paramname=paramname)
     values+=":{paramname}{myparam}".format(myparam=myparam,paramname=paramname)
+    formulaire+="\r\n<div class=\"field\">"
+    formulaire+="\r\n<label for=\"champ_{hey}_{paramname}\">{paramname}</label>".format(hey=filename,paramname=paramname)
+    formulaire+="\r\n<input type=\"text\" id=\"champ_{hey}_{paramname}\" name=\"{paramname}\" />".format(hey=filename,paramname=paramname)
+    formulaire+="\r\n</div>"
+    myitem+="\r\n<div class=\"hey\">"
+    myitem+="\r\n<b>{paramname}:</b>".format(paramname=paramname)
+    myitem+="\r\n<%=hey['{paramname}']%>".format(hey=filename,paramname=paramname)
+    myitem+="\r\n</div>"
+
     createtable+="""        {paramname} text{myparam}
     """.format(myparam=myparam,paramname=paramname)
+formulaire+="\r\n<div class=\"actions\">"
+formulaire+="\r\n<input type=\"submit\" id=\"valider_{paramname}\" value=\"creer {paramname}\" name=\"valider_{paramname}\"/>".format(paramname=filename)
+formulaire+="\r\n</div>"
+formulaire+="\r\n</form>"
+myitem+="\r\n</div>"
 columns+=")"
 values+=")"
 mystr="""# coding=utf-8
@@ -108,6 +128,18 @@ if not os.path.isfile(filename+".py"):
   res=(mystr.format(modelname=modelname,filename=filename,columns=columns,values=values,myhash={},notice={}))
   print(res)
   f.write(res)
+  f.close()
+if not os.path.isfile("form_new_"+filename+".html"):
+  f = open("form_new_"+filename+".html", "w") 
+  f.write(formulaire)
+  f.close()
+if not os.path.isfile("all_"+filename+".html"):
+  f = open("all_"+filename+".html", "w") 
+  f.write(pageindex)
+  f.close()
+if not os.path.isfile("_"+filename+".html"):
+  f = open("_"+filename+".html", "w") 
+  f.write(myitem)
   f.close()
 
 

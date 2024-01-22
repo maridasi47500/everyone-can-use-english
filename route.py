@@ -5,6 +5,7 @@ from user import User
 from myrecording import Myrecording
 from book import Book
 from program import Myprogram
+from macroword import Macroword
 
 
 from mypic import Pic
@@ -22,6 +23,7 @@ class Route():
         self.mysession={"notice":None,"email":None,"name":None}
         self.dbScript=Myscript()
         self.dbBook=Book()
+        self.dbMacro=Macroword()
         self.execProgram=Myprogram()
         self.dbRecording=Myrecording()
         self.render_figure=RenderFigure(self.Program)
@@ -96,6 +98,23 @@ class Route():
         #x=self.dbHouse.create(myparam)
         print(hey)
         return self.render_some_json("welcome/mypic.json")
+    def voir_livre(self,params):
+        getparams=("id",)
+        print("get param, action see my new",getparams)
+        myparam=self.get_this_route_param(getparams,params)
+        x=self.dbBook.getbyid(myparam["id"])
+        self.render_figure.set_param("book",x)
+        return self.render_figure.render_figure("book/voirlivre.html")
+    def create_book(self,search):
+        myparam=self.get_post_data()(params=("title","author",))
+        x=self.dbBook.create(myparam)
+        self.render_figure.set_param("redirect","/books")
+        return self.render_some_json("welcome/redirect.json")
+    def create_macros(self,search):
+        myparam=self.get_post_data()(params=("nom","fichier",))
+        x=self.dbMacro.create(myparam)
+        self.render_figure.set_param("redirect","/macros")
+        return self.render_some_json("welcome/redirect.json")
     def monscript(self,search):
         myparam=self.get_post_data()(params=("name","content",))
         hey=self.dbCommandline.create(myparam)
@@ -153,6 +172,9 @@ class Route():
     def books(self,params={}):
         self.render_figure.set_param("books",self.dbBook.getall())
         return self.render_figure.render_figure("book/books.html")
+    def macros(self,params={}):
+        self.render_figure.set_param("macros",self.dbMacro.getall())
+        return self.render_figure.render_figure("welcome/macro.html")
     def myusers(self,params={}):
         self.render_figure.set_param("users",User().getall())
         return self.render_figure.render_figure("user/users.html")
@@ -296,6 +318,10 @@ class Route():
             ROUTES={
                     '^/$': self.hello,
                     '^/books$': self.books,
+                    '^/macros$': self.macros,
+                    '^/create_macroword$': self.create_macros,
+                    '^/create_book$': self.create_book,
+                    '^/book/(\d+)$': self.voir_livre,
                     '^/elibrary$': self.elibrary,
 
                     }
