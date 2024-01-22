@@ -3,6 +3,7 @@ from render_figure import RenderFigure
 from myscript import Myscript
 from user import User
 from myrecording import Myrecording
+from book import Book
 from program import Myprogram
 
 
@@ -20,6 +21,7 @@ class Route():
         self.Program.set_path("./")
         self.mysession={"notice":None,"email":None,"name":None}
         self.dbScript=Myscript()
+        self.dbBook=Book()
         self.execProgram=Myprogram()
         self.dbRecording=Myrecording()
         self.render_figure=RenderFigure(self.Program)
@@ -148,6 +150,9 @@ class Route():
         print("get param, action see my new",getparams)
         myparam=self.get_this_route_param(getparams,params)
         return self.render_figure.set_param("user",User().getbyid(myparam["id"]))
+    def books(self,params={}):
+        self.render_figure.set_param("books",self.dbBook.getall())
+        return self.render_figure.render_figure("book/books.html")
     def myusers(self,params={}):
         self.render_figure.set_param("users",User().getall())
         return self.render_figure.render_figure("user/users.html")
@@ -290,6 +295,7 @@ class Route():
             print("link route ",path)
             ROUTES={
                     '^/$': self.hello,
+                    '^/books$': self.books,
                     '^/elibrary$': self.elibrary,
 
                     }
