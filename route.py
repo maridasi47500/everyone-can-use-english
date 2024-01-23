@@ -4,10 +4,13 @@ from myscript import Myscript
 from user import User
 from myrecording import Myrecording
 from book import Book
+from phrase import Phrase
 from program import Myprogram
 from macroword import Macroword
+from phraseatrou import Phraseatrou
 
 
+from film import Film
 from mypic import Pic
 from javascript import Js
 from stylesheet import Css
@@ -23,6 +26,9 @@ class Route():
         self.mysession={"notice":None,"email":None,"name":None}
         self.dbScript=Myscript()
         self.dbBook=Book()
+        self.dbFilm=Film()
+        self.dbPhrase=Phrase()
+        self.dbPhraseatrou=Phraseatrou()
         self.dbMacro=Macroword()
         self.execProgram=Myprogram()
         self.dbRecording=Myrecording()
@@ -98,6 +104,20 @@ class Route():
         #x=self.dbHouse.create(myparam)
         print(hey)
         return self.render_some_json("welcome/mypic.json")
+    def edit_phraseatrou(self,params):
+        getparams=("id",)
+        print("get param, action see my new",getparams)
+        myparam=self.get_this_route_param(getparams,params)
+        x=self.dbPhraseatrou.getbyid(myparam["id"])
+        self.render_figure.set_param("phraseatrou",x)
+        return self.render_figure.render_figure("phraseatrou/form_edit_phraseatrou.html")
+    def edit_phrase(self,params):
+        getparams=("id",)
+        print("get param, action see my new",getparams)
+        myparam=self.get_this_route_param(getparams,params)
+        x=self.dbPhrase.getbyid(myparam["id"])
+        self.render_figure.set_param("phrase",x)
+        return self.render_figure.render_figure("phrase/editphrase.html")
     def voir_livre(self,params):
         getparams=("id",)
         print("get param, action see my new",getparams)
@@ -105,10 +125,35 @@ class Route():
         x=self.dbBook.getbyid(myparam["id"])
         self.render_figure.set_param("book",x)
         return self.render_figure.render_figure("book/voirlivre.html")
+    def update_phraseatrou(self,search):
+        myparam=self.get_post_data()(params=("text_en","text_trou","id",))
+        x=self.dbPhraseatrou.update(myparam)
+        self.render_figure.set_param("redirect","/phraseatrou")
+        return self.render_some_json("welcome/redirect.json")
+    def update_phrase(self,search):
+        myparam=self.get_post_data()(params=("text_fr","text_en","id",))
+        x=self.dbPhrase.update(myparam)
+        self.render_figure.set_param("redirect","/phrase")
+        return self.render_some_json("welcome/redirect.json")
     def create_book(self,search):
         myparam=self.get_post_data()(params=("title","author",))
         x=self.dbBook.create(myparam)
         self.render_figure.set_param("redirect","/books")
+        return self.render_some_json("welcome/redirect.json")
+    def create_film(self,search):
+        myparam=self.get_post_data()(params=("title","date_sortie",))
+        x=self.dbFilm.create(myparam)
+        self.render_figure.set_param("redirect","/films")
+        return self.render_some_json("welcome/redirect.json")
+    def create_phraseatrou(self,search):
+        myparam=self.get_post_data()(params=("text_en","text_trou",))
+        x=self.dbPhraseatrou.create(myparam)
+        self.render_figure.set_param("redirect","/phraseatrou")
+        return self.render_some_json("welcome/redirect.json")
+    def create_phrase(self,search):
+        myparam=self.get_post_data()(params=("text_fr","text_en",))
+        x=self.dbPhrase.create(myparam)
+        self.render_figure.set_param("redirect","/phrase")
         return self.render_some_json("welcome/redirect.json")
     def create_macros(self,search):
         myparam=self.get_post_data()(params=("nom","fichier",))
@@ -172,6 +217,15 @@ class Route():
     def books(self,params={}):
         self.render_figure.set_param("books",self.dbBook.getall())
         return self.render_figure.render_figure("book/books.html")
+    def phrases(self,params={}):
+        self.render_figure.set_param("phrase",self.dbPhrase.getall())
+        return self.render_figure.render_figure("phrase/all_phrase.html")
+    def phraseatrou(self,params={}):
+        self.render_figure.set_param("phraseatrou",self.dbPhraseatrou.getall())
+        return self.render_figure.render_figure("phraseatrou/all_phraseatrou.html")
+    def films(self,params={}):
+        self.render_figure.set_param("film",self.dbFilm.getall())
+        return self.render_figure.render_figure("film/all_film.html")
     def macros(self,params={}):
         self.render_figure.set_param("macros",self.dbMacro.getall())
         return self.render_figure.render_figure("welcome/macro.html")
@@ -321,8 +375,19 @@ class Route():
                     '^/macros$': self.macros,
                     '^/create_macroword$': self.create_macros,
                     '^/create_book$': self.create_book,
+                    '^/films$': self.films,
+                    '^/create_film$': self.create_film,
                     '^/book/(\d+)$': self.voir_livre,
                     '^/elibrary$': self.elibrary,
+                    '^/phrase$': self.phrases,
+                    '^/editphrase/(\d+)$': self.edit_phrase,
+                    '^/create_phrase$': self.create_phrase,
+                    '^/update_phrase$': self.update_phrase,
+                    '^/phraseatrou$': self.phraseatrou,
+                    '^/editphraseatrou/(\d+)$': self.edit_phraseatrou,
+                    '^/create_phraseatrou$': self.create_phraseatrou,
+                    '^/update_phraseatrou$': self.update_phraseatrou,
+                    '^/maphrase$': self.maphrase,
 
                     }
             REDIRECT={"/save_user": "/welcome"}

@@ -1,0 +1,14 @@
+<form method="post" action="/update_phraseatrou">
+<input type="hidden" value="<%=phraseatrou['id']%>" id="champ_phraseatrou_id" name="id" />
+<div class="field">
+<label for="champ_phraseatrou_text_en">text_en</label>
+<input type="text" value="<%=phraseatrou['text_en']%>" id="champ_phraseatrou_text_en" name="text_en" />
+</div>
+<div class="field">
+<label for="champ_phraseatrou_text_trou">text_trou</label>
+<input type="text" value="<%=phraseatrou['text_trou']%>" id="champ_phraseatrou_text_trou" name="text_trou" />
+</div>
+<div class="actions">
+<input type="submit" id="edit_phraseatrou" value="modifier phraseatrou" name="edit_phraseatrou"/>
+</div>
+</form>

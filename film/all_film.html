@@ -1,0 +1,7 @@
+<h1>tous les film</h1>
+<a id="ajouter_sth" href="javascript:void(0)">Ajouter 1 macro</a>
+<div id="overlaynew"><div id="text"><span class="close">X</span>formulaire
+		                                <%=Fichier("./film","form_new_film.html").lire()%>
+						                                        </div></div>
+
+<ul><%=render_collection(collection=params['film'], partial='film/_film.html', as_='film')%></ul>

@@ -1,0 +1,32 @@
+<h1>tous les phraseatrou</h1>
+<p>
+1. Marquez cette phrase qui, pour moi, ne correspond pas à une
+correspondance individuelle ;
+<br>
+2. Copiez-le dans un cahier ;
+<br>
+3. Réfléchissez à la question de savoir si cette phrase peut être utilisée
+comme modèle de pratique de remplacement - c'est-à-dire, voyez si je peux
+transformer cette phrase en un modèle de phrase « remplissez le vide »
+comme celui-ci :
+<br>
+> L'impact que _____ a/a eu sur _____ est indéniable.
+Après cela, je peux continuer à utiliser ce « modèle » pour faire des
+<br>
+phrases :
+* L'impact qu'Internet a eu sur tous les aspects de notre vie quotidienne
+est indéniable.
+<br>
+* L'impact que les parents et leurs attitudes ont eu sur le développement
+de la personnalité de leurs enfants est indéniable.
+<br>
+* L'impact de l'éducation précoce d'une personne sur sa vie future est
+indéniable.
+</p>
+<a id="ajouter_sth" href="javascript:void(0)">Ajouter 1 phrase  </a>
+<div id="overlaynew"><div id="text"><span class="close">X</span>formulaire
+		                                                                <%=Fichier("./phraseatrou","form_new_phraseatrou.html").lire()%>
+
+										                  </div></div>
+
+<ul><%=render_collection(collection=params['phraseatrou'], partial='phraseatrou/_phraseatrou.html', as_='phraseatrou')%></ul>

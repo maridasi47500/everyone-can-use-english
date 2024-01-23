@@ -1,0 +1,24 @@
+<div class="my_phraseatrou">
+<div class="hey">
+<b>text_en:</b>
+<%=phraseatrou['text_en']%>
+</div>
+<div class="hey">
+<b>text_trou:</b>
+<%=phraseatrou['text_trou']%>
+</div>
+<div class="hey">
+<%w=phraseatrou['text_trou']%>
+<%while len(w.split("__")) > 1: w=w.replace("__","_")%>
+<form method="post" action="/maphrase">
+	<input type="hidden" value="<%=phraseatrou['id']%>" name="id" />
+<%=w.replace("_","<input type=\"text\" name=\"Heyphrase[]\"/>")%>
+<div class="actions">
+	<input type="submit" value="ecrire avec la phrase a trou" name="valider_phraseatrou"/>
+</div>
+</form>
+</div>
+<div class="hey">
+	<a href="/editphraseatrou/<%=phraseatrou['id']%>">modifier phrase à trou</a>
+</div>
+</div>

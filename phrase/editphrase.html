@@ -1,0 +1,14 @@
+<form method="post" action="/update_phrase">
+<input type="hidden" value="<%=phrase["id"]%>" id="id_phrase_text_fr" name="id" />
+<div class="field">
+<label for="champ_phrase_text_fr">text_fr</label>
+<input type="text" value="<%=phrase["text_fr"]%>" id="champ_phrase_text_fr" name="text_fr" />
+</div>
+<div class="field">
+<label for="champ_phrase_text_en">text_en</label>
+<input type="text" value="<%=phrase["text_en"]%>" id="champ_phrase_text_en" name="text_en" />
+</div>
+<div class="actions">
+<input type="submit" id="valider_phrase" value="modifier phrase" name="valider_phrase"/>
+</div>
+</form>

@@ -1,0 +1,9 @@
+<h1>tous les phrase</h1>
+<p>écrire en français ce que vous voulez exprimer. Après
+avoir persisté pendant un certain temps, prenez chaque jour plus de temps
+pour exprimer ce que vous voulez dire en anglais et enregistrez-le.</p>
+<a id="ajouter_sth" href="javascript:void(0)">Ajouter 1 text </a>
+<div id="overlaynew"><div id="text"><span class="close">X</span>formulaire
+		                                                <%=Fichier("./phrase","form_new_phrase.html").lire()%>
+								                                                                                        </div></div>
+<ul><%=render_collection(collection=params['phrase'], partial='phrase/_phrase.html', as_='phrase')%></ul>

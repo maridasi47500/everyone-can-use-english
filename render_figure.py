@@ -56,22 +56,43 @@ class RenderFigure():
         mystr=""
         i=0
         paspremier=False
-        for x in collection:
-            for j in myview.split("<%="):
-                if "%>" not in j:
-                    mystr+=j
-                    continue
 
-                k=j.split("%>")
-                loc={"paspremier":paspremier,as_: x,"index":i,  "params": self.params,"render_collection":self.render_collection}
-                print(dict(x))
-                if k[0]:
-                  print(k[0], "content render")
-                  print(k[0])
-                  l=exec("myvalue="+k[0], globals(), loc)
-                  mystr+=str(loc["myvalue"])
-                if k[1]:
-                  mystr+=k[1]
+        for x in collection:
+            loc={"paspremier":paspremier,as_: x,"index":i,  "params": self.params,"render_collection":self.render_collection}
+            for j in myview.split("<%"):
+
+                if j[0] == "=":
+                  j=j[1:]
+                  if "%>" not in j:
+                      mystr+=j
+                      continue
+
+                  k=j.split("%>")
+
+                  print(dict(x))
+                  if k[0]:
+                    print(k[0], "content render")
+                    print(k[0])
+                    l=exec("myvalue="+k[0], globals(), loc)
+                    try:
+                      mystr+=str(loc["myvalue"])
+                    except:
+                      print("erreru")
+                  if k[1]:
+                    mystr+=k[1]
+                else:
+                  if "%>" not in j:
+                      mystr+=j
+                      continue
+
+                  k=j.split("%>")
+                  print(dict(x))
+                  if k[0]:
+                    print(k[0], "content render")
+                    print(k[0])
+                    exec(k[0], globals(), loc)
+                  if k[1]:
+                    mystr+=k[1]
             i+=1
             paspremier=True
         return mystr

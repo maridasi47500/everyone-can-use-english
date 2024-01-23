@@ -18,18 +18,15 @@ index = 2
 createtable=""
 columns="("
 values="("
-updatevalues=""
 myparam=","
 items=sys.argv
 formulaire="<form method=\"post\" action=\"/create_"+items[1]+"\">"
 formulaireedit="<form method=\"post\" action=\"/update_"+items[1]+"\">"
-formulaireedit+="\r\n<input type=\"hidden\" value=\"<%={hey}['{paramname}']%>\" id=\"champ_{hey}_{paramname}\" name=\"{paramname}\" />".format(hey=filename,paramname="id")
 myitem="<div class=\"my_"+items[1]+"\">"
 pageindex="<h1>tous les "+items[1]+"</h1>"
 pageindex+="<ul>"
 pageindex+="<%=render_collection(collection=params['{hey}'], partial='{hey}/_{hey}.html', as_='{hey}')%>".format(hey=items[1])
 pageindex+="</ul>"
-paspremier=False
 while index < (len(items)):
 
     try:
@@ -39,12 +36,8 @@ while index < (len(items)):
     except:
       myparam=""
     index += 1
-
-    if paspremier:
-        updatevalues+=","
     columns+="{paramname}{myparam}".format(myparam=myparam,paramname=paramname)
     values+=":{paramname}{myparam}".format(myparam=myparam,paramname=paramname)
-    updatevalues+="{paramname} = :{paramname}".format(paramname=paramname)
     formulaire+="\r\n<div class=\"field\">"
     formulaire+="\r\n<label for=\"champ_{hey}_{paramname}\">{paramname}</label>".format(hey=filename,paramname=paramname)
     formulaire+="\r\n<input type=\"text\" id=\"champ_{hey}_{paramname}\" name=\"{paramname}\" />".format(hey=filename,paramname=paramname)
@@ -60,7 +53,6 @@ while index < (len(items)):
 
     createtable+="""        {paramname} text{myparam}
     """.format(myparam=myparam,paramname=paramname)
-    paspremier=True
 formulaire+="\r\n<div class=\"actions\">"
 formulaire+="\r\n<input type=\"submit\" id=\"valider_{paramname}\" value=\"creer {paramname}\" name=\"valider_{paramname}\"/>".format(paramname=filename)
 formulaire+="\r\n</div>"
@@ -135,35 +127,6 @@ mystr+="""        self.cur.execute("delete from {filename} where id = ?",(myid,)
         azerty["{filename}_id"]=myid
         azerty["notice"]="votre {filename} a été ajouté"
         return azerty
-    def update(self,params):
-        print("ok")
-        myhash={myhash}
-        for x in params:
-            if 'confirmation' in x:
-                continue
-            if 'envoyer' in x:
-                continue
-            if '[' not in x and x not in ['routeparams']:
-                #print("my params",x,params[x])
-                try:
-                  myhash[x]=str(params[x].decode())
-                except:
-                  myhash[x]=str(params[x])
-        print("M Y H A S H")
-        print(myhash,myhash.keys())
-        myid=None
-        try:
-          self.cur.execute("update {filename} set {updatevalues} where id = :id",myhash)
-          self.con.commit()
-          myid=str(self.cur.lastrowid)
-        except Exception as e:
-          print("my error"+str(e))
-        azerty={notice}
-        azerty["{filename}_id"]=myid
-        azerty["notice"]="votre {filename} a été modifié"
-        return azerty
-
-
 
 
 
@@ -171,7 +134,7 @@ mystr+="""        self.cur.execute("delete from {filename} where id = ?",(myid,)
 """
 if not os.path.isfile(filename+".py"):
   f = open(filename+".py", "w") 
-  res=(mystr.format(modelname=modelname,filename=filename,columns=columns,values=values,myhash={},notice={},updatevalues=updatevalues))
+  res=(mystr.format(modelname=modelname,filename=filename,columns=columns,values=values,myhash={},notice={}))
   print(res)
   f.write(res)
   f.close()
