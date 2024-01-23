@@ -10,9 +10,13 @@
 <div class="hey">
 <%w=phraseatrou['text_trou']%>
 <%while len(w.split("__")) > 1: w=w.replace("__","_")%>
-<form method="post" action="/maphrase">
+<form method="post" action="/create_maphrase" class="maphrase_form">
 	<input type="hidden" value="<%=phraseatrou['id']%>" name="id" />
-<%=w.replace("_","<input type=\"text\" name=\"Heyphrase[]\"/>")%>
+	<div class="field maphraseatrou">
+	<span class="partiephraseatrou">
+	<%=w.replace("_","</span><input class=\"champphraseatrou\" type=\"text\" name=\"Heyphrase[]\"/><span \"partiephraseatrou\">")%>
+</span>
+</div>
 <div class="actions">
 	<input type="submit" value="ecrire avec la phrase a trou" name="valider_phraseatrou"/>
 </div>

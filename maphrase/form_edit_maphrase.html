@@ -1,0 +1,10 @@
+<form method="post" action="/update_maphrase">
+<input type="hidden" value="<%=maphrase['id']%>" id="champ_maphrase_id" name="id" />
+<div class="field">
+<label for="champ_maphrase_text">text</label>
+<input type="text" value="<%=maphrase['text']%>" id="champ_maphrase_text" name="text" />
+</div>
+<div class="actions">
+<input type="submit" id="edit_maphrase" value="modifier maphrase" name="edit_maphrase"/>
+</div>
+</form>

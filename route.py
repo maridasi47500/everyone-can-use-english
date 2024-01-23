@@ -8,6 +8,7 @@ from phrase import Phrase
 from program import Myprogram
 from macroword import Macroword
 from phraseatrou import Phraseatrou
+from maphrase import Maphrase
 
 
 from film import Film
@@ -28,6 +29,7 @@ class Route():
         self.dbBook=Book()
         self.dbFilm=Film()
         self.dbPhrase=Phrase()
+        self.dbMaphrase=Maphrase()
         self.dbPhraseatrou=Phraseatrou()
         self.dbMacro=Macroword()
         self.execProgram=Myprogram()
@@ -135,6 +137,11 @@ class Route():
         x=self.dbPhrase.update(myparam)
         self.render_figure.set_param("redirect","/phrase")
         return self.render_some_json("welcome/redirect.json")
+    def create_maphrase(self,search):
+        myparam=self.get_post_data()(params=("text",))
+        x=self.dbMaphrase.create(myparam)
+        self.render_figure.set_param("redirect","/maphrase")
+        return self.render_some_json("welcome/redirect.json")
     def create_book(self,search):
         myparam=self.get_post_data()(params=("title","author",))
         x=self.dbBook.create(myparam)
@@ -214,6 +221,9 @@ class Route():
         print("get param, action see my new",getparams)
         myparam=self.get_this_route_param(getparams,params)
         return self.render_figure.set_param("user",User().getbyid(myparam["id"]))
+    def maphrase(self,params={}):
+        self.render_figure.set_param("maphrase",self.dbMaphrase.getall())
+        return self.render_figure.render_figure("maphrase/all_maphrase.html")
     def books(self,params={}):
         self.render_figure.set_param("books",self.dbBook.getall())
         return self.render_figure.render_figure("book/books.html")
@@ -376,6 +386,7 @@ class Route():
                     '^/create_macroword$': self.create_macros,
                     '^/create_book$': self.create_book,
                     '^/films$': self.films,
+                    '^/maphrase$': self.maphrase,
                     '^/create_film$': self.create_film,
                     '^/book/(\d+)$': self.voir_livre,
                     '^/elibrary$': self.elibrary,
@@ -388,6 +399,7 @@ class Route():
                     '^/create_phraseatrou$': self.create_phraseatrou,
                     '^/update_phraseatrou$': self.update_phraseatrou,
                     '^/maphrase$': self.maphrase,
+                    '^/create_maphrase$': self.create_maphrase,
 
                     }
             REDIRECT={"/save_user": "/welcome"}
