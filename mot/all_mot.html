@@ -1,1 +1,47 @@
-</ul>
+<h1>tous les mot</h1>
+<a id="ajouter_sth" href="javascript:void(0)">Ajouter 1 mot</a>
+<div id="overlaynew"><div id="text"><span class="close">X</span>formulaire
+		<%alphabetlist=[]%>
+		<%w=7424%>
+		<%while w < 7616: alphabetlist.append({"caractere":w}); w+=1%>
+		<%=len()%>
+
+<div class="alphabet"><%=render_collection(collection=alphabetlist, partial='mot/_caractere.html', as_='alphabet')%></div>
+
+		                                                                <%=Fichier("./mot","form_new_mot.html").lire()%>
+
+										                  </div></div>
+
+<ul><%=render_collection(collection=params['mot'], partial='mot/_mot.html', as_='mot')%></ul>
+<p>
+* Assurez-vous d’abord d’avoir suffisamment d’expérience en lecture. Par
+exemple, je lis une heure chaque matin (il suffit d'écouter
+l'enregistrement et de lire le manuel) pendant au moins trois mois. Dans ce
+processus, la plupart des langues ont été suffisamment bien maîtrisées (il
+faudra beaucoup de temps pour se rapprocher du « standard »),
+l'apprentissage des symboles phonétiques est donc garanti.
+<br>
+* N'apprenez qu'un seul système complètement. Si vous êtes encore au
+collège, vous pouvez choisir la notation phonétique DJ, ou la notation
+phonétique KK, c'est-à-dire celle utilisée dans votre manuel. Si vous
+apprenez l'anglais depuis de nombreuses années, vous devez choisir le
+système de notation phonétique du dictionnaire que vous utilisez
+actuellement et que vous utilisez le plus fréquemment.
+<br>
+* Il est préférable d'utiliser la version audio du dictionnaire sur votre
+ordinateur, afin de pouvoir rechercher tous les exemples de mots et les
+enregistrer au format mp3. Lisez-le encore et encore.
+<br>
+* Selon la table des symboles phonétiques, copiez plusieurs fois les
+symboles phonétiques de chaque exemple de mot (de préférence plus de 7
+fois).
+<br>
+* Copiez la liste des exemples de mots, puis notez les symboles phonétiques
+correspondants, puis vérifiez (au moins deux fois).
+* Chaque fois que vous recherchez un mot dans le futur, vous devez marquer
+le symbole phonétique à côté du texte original.
+<br>
+* Il est nécessaire de passer du temps à apprendre les règles d'orthographe
+de l'anglais.
+
+</p>

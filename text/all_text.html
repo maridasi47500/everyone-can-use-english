@@ -1,1 +1,128 @@
-</ul>
+<h1>tous les text</h1>
+<a id="ajouter_sth" href="javascript:void(0)">Ajouter 1 texte enregistré</a>
+<div id="overlaynew"><div id="text"><span class="close">X</span>formulaire
+		                                                <%=Fichier("./text","form_new_text.html").lire()%>
+								                                                                                        </div></div>
+<p>### Brève description de l'utilisation d'AudioEdit
+<br>
+Comme le montre l'image :
+<br>
+1. Ouvrez le fichier son (mp3, wav)
+<br>
+2. Bouton de lecture en boucle
+<br>
+3. Cliquez avec le bouton gauche de la souris pour définir le point de
+<br>
+départ, cliquez avec le bouton droit de la souris pour définir le point
+<br>
+final et sélectionnez une section de l'audio.
+<br>
+4. Placez le pointeur de la souris sur la zone sélectionnée et utilisez la
+<br>
+molette de la souris pour effectuer un zoom avant et arrière sur l'image
+<br>
+audio.
+<br>
+</p>
+
+
+<ul><%=render_collection(collection=params['text'], partial='text/_text.html', as_='text')%></ul>
+<p>
+la première étape
+consiste à lire le texte de manière intensive. Tous les mots inconnus
+doivent être recherchés, puis la signification exacte du mot dans la phrase
+actuelle doit être déterminée, puis copiée à côté du texte. Bien entendu,
+nous disposons également aujourd’hui de MS Word, qui permet d’ajouter
+facilement des « annotations » au texte. Dans Word, il existe également un
+dictionnaire intégré, très simple à utiliser... Si vous avez vérifié chaque
+mot mais que vous n'arrivez toujours pas à comprendre le sens de la phrase,
+alors il devrait généralement y avoir des phrases et vous devriez vérifier
+eux un par un.
+Lorsque vous recherchez chaque nouveau mot, enregistrez l'accent et la
+longueur des voyelles (notez la notation phonétique complète si nécessaire,
+ou utilisez la notation simplifiée). Mon approche consiste à ajouter des
+marques d'accentuation (accentué /ˈ/ et secondaire /ˌ/) avant les syllabes
+accentuées et à tracer une ligne horizontale sur les lettres qui composent
+les voyelles longues et les diphtongues - aucune ligne horizontale n'est
+tracée. voyelle. Si nous utilisons un traitement de texte tel que MS Word,
+nous pouvons utiliser les marquages suivants : marquer les syllabes
+accentuées avec "emphase" (CTRL+B), et "souligner" les lettres qui
+constituent les voyelles longues et les diphtongues. (CTRL+U ) marque.
+<br>
+La deuxième étape consiste à écouter l'enregistrement à plusieurs reprises
+et à apporter des corrections pour un flux de parole naturel. Lorsque j'ai
+consulté le dictionnaire pour la première fois, j'ai trouvé la
+prononciation de mots individuels ; leur prononciation dans le flux du
+langage naturel changera d'une manière ou d'une autre. Selon le mécanisme
+mentionné précédemment, il est facile d'identifier ces changements.
+Encerclez les mots qui sont fortement prononcés ; marquez les syllabes dont
+la hauteur est élevée (j'utilise habituellement un petit triangle) ;
+certaines syllabes ont des tons visiblement différents, marquez-les avec
+"1", "2" et "4" qui sortent ; dessinez un trait vertical à la pause, puis
+faire attention aux endroits où il y a une panne, où il y a de la
+turbidité, où il y a une lecture continue... Lors du marquage, il faut
+imiter. Parfois, il faut imiter pour découvrir ce qu'on vient de dire. ...
+En fait, j'ai mal entendu.
+Maintenant, nous avons une « feuille de partition ». Nous savons quelle est
+la longueur de chaque son - lequel était à l'origine long mais est
+maintenant plus court, lequel n'était pas long mais est maintenant un peu
+plus long ; nous connaissons la force et la faiblesse de chaque son ; nous
+savons quels sons ont le même mouvement complet que tout autre son Mais il
+n'y a pas de vibration du flux d'air ni de vibration des cordes vocales, ou
+ni l'un ni l'autre ; on sait où il y a une pause, où le ton est spécial, où
+il y a un ton montant...
+<br>
+Nous pouvons donc commencer la troisième étape. Lisez-le encore et encore.
+Au début, vous pouvez enregistrer et jouer une phrase et la suivre vous
+même plusieurs fois. La condition préalable pour vous corriger
+soigneusement est de la lire à haute voix. Une fois que vous vous êtes
+familiarisé avec lui, vous pouvez enregistrer et lire une phrase après
+l'autre. Une fois que vous vous êtes familiarisé avec lui, vous pouvez le
+lire « de manière asynchrone ». La lecture dite asynchrone signifie « lire
+lentement et suivre ». Après avoir entendu un mot prononcé dans
+l'enregistrement, nous recommençons. Ce que nous répétons dans notre bouche
+est le mot qui vient d'être prononcé dans l'enregistrement, et ce que nous
+entendons dans nos oreilles est notre propre voix et le mot suivant
+prononcé en même temps dans l'enregistrement. le temps, et le cycle se
+répète. , lorsque l'enregistrement termine de prononcer une phrase, nous
+disons un autre mot et cela se termine. Ce type de formation peut améliorer
+subtilement notre mémoire instantanée en anglais. Lorsque vous le
+connaissez dans une certaine mesure, vous pouvez « synchroniser » la
+lecture à voix haute.
+<br>
+La quatrième étape consiste à enregistrer la correction. De temps en temps,
+vous pouvez enregistrer votre propre voix de lecture et la sauvegarder,
+puis la réécouter après une semaine. La raison pour laquelle de nombreuses
+personnes obtiennent le double du résultat avec la moitié de l'effort est
+de l'écouter immédiatement après l'enregistrement, mais dans ce cas, il n'y
+a fondamentalement aucune possibilité de correction - car il n'y a aucun
+changement en vous après l'enregistrement et avant l'enregistrement. A ce
+moment-là, vous avez senti que c'était juste de dire cela, alors vous avez
+dit cela. Après seulement deux ou trois minutes, vous n'auriez pas fait de
+progrès énormes ni même suffisants ; donc, sans aucun changement, vous ne
+pouviez pas dire qu'il y avait Il y avait quelque chose qui n'allait pas
+chez toi. , et je n'ai aucune capacité de le corriger moi-même. Cependant,
+si vous continuez à pratiquer, pratiquez tous les jours, après une semaine,
+vos progrès seront suffisants, voire énormes, vous pourrez donc facilement
+entendre certaines des erreurs que vous avez commises dans le passé.
+Dans des moments comme celui-ci, les pensées qui vous traversent souvent
+l'esprit sont du genre : "Oh mon Dieu, comment ai-je pu commettre une
+erreur aussi (insignifiante) !" Les impressions ne viennent souvent que de
+deux directions : 1) beaucoup de répétitions ; 2) accidents Découvrir. Et
+la pensée de tout à l'heure vous fera « sentir » inattendu, donc une fois
+que cette pensée apparaîtra, vous ferez de grands progrès - car il vous
+sera difficile de refaire la même erreur à l'avenir, parce que vous êtes
+profondément impressionné. Bien sûr, il faut encore l’enregistrer car notre
+mémoire n’est pas fiable. Il y a aussi quelque chose de profond ici dans
+les clichés des enseignants du primaire, comme celui-ci : un bon souvenir
+n'est pas aussi bon qu'un mauvais écrit.
+<br>
+La dernière étape consiste à réciter. Les étudiants me demandent souvent :
+combien de fois dois-je lire un article ? Ma réponse est au moins 60 fois.
+Un enregistrement d'écoute TOEFL dure environ 90 secondes. Si vous avez un
+niveau de compétence modéré, il vous faudra environ trois à cinq minutes
+pour le terminer en lisant et en imitant plusieurs fois. Si la moyenne est
+comptée une fois pour 5 minutes, 60 fois équivaut à 5 heures. Juste 1 heure
+par jour, du lundi au vendredi,
+
+</p>

@@ -1,0 +1,14 @@
+<form method="post" action="/update_mot">
+<input type="hidden" value="<%=mot['id']%>" id="champ_mot_id" name="id" />
+<div class="field">
+<label for="champ_mot_mot">mot</label>
+<input type="text" value="<%=mot['mot']%>" id="champ_mot_mot" name="mot" />
+</div>
+<div class="field">
+<label for="champ_mot_alphabet">alphabet</label>
+<input type="text" value="<%=mot['alphabet']%>" id="champ_mot_alphabet" name="alphabet" />
+</div>
+<div class="actions">
+<input type="submit" id="edit_mot" value="modifier mot" name="edit_mot"/>
+</div>
+</form>

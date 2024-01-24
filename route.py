@@ -9,6 +9,8 @@ from program import Myprogram
 from macroword import Macroword
 from phraseatrou import Phraseatrou
 from maphrase import Maphrase
+from mot import Mot
+from text import Text
 
 
 from film import Film
@@ -28,7 +30,9 @@ class Route():
         self.dbScript=Myscript()
         self.dbBook=Book()
         self.dbFilm=Film()
+        self.dbMot=Mot()
         self.dbPhrase=Phrase()
+        self.dbText=Text()
         self.dbMaphrase=Maphrase()
         self.dbPhraseatrou=Phraseatrou()
         self.dbMacro=Macroword()
@@ -137,6 +141,11 @@ class Route():
         x=self.dbPhrase.update(myparam)
         self.render_figure.set_param("redirect","/phrase")
         return self.render_some_json("welcome/redirect.json")
+    def create_mot(self,search):
+        myparam=self.get_post_data()(params=("mot","alphabet",))
+        x=self.dbMot.create(myparam)
+        self.render_figure.set_param("redirect","/api")
+        return self.render_some_json("welcome/redirect.json")
     def create_maphrase(self,search):
         myparam=self.get_post_data()(params=("text",))
         x=self.dbMaphrase.create(myparam)
@@ -146,6 +155,11 @@ class Route():
         myparam=self.get_post_data()(params=("title","author",))
         x=self.dbBook.create(myparam)
         self.render_figure.set_param("redirect","/books")
+        return self.render_some_json("welcome/redirect.json")
+    def create_text(self,search):
+        myparam=self.get_post_data()(params=("text","recording",))
+        x=self.ddText.create(myparam)
+        self.render_figure.set_param("redirect","/text")
         return self.render_some_json("welcome/redirect.json")
     def create_film(self,search):
         myparam=self.get_post_data()(params=("title","date_sortie",))
@@ -221,6 +235,12 @@ class Route():
         print("get param, action see my new",getparams)
         myparam=self.get_this_route_param(getparams,params)
         return self.render_figure.set_param("user",User().getbyid(myparam["id"]))
+    def text(self,params={}):
+        self.render_figure.set_param("text",self.dbText.getall())
+        return self.render_figure.render_figure("text/all_text.html")
+    def mot(self,params={}):
+        self.render_figure.set_param("mot",self.dbMot.getall())
+        return self.render_figure.render_figure("mot/all_mot.html")
     def maphrase(self,params={}):
         self.render_figure.set_param("maphrase",self.dbMaphrase.getall())
         return self.render_figure.render_figure("maphrase/all_maphrase.html")
@@ -400,6 +420,10 @@ class Route():
                     '^/update_phraseatrou$': self.update_phraseatrou,
                     '^/maphrase$': self.maphrase,
                     '^/create_maphrase$': self.create_maphrase,
+                    '^/api$': self.mot,
+                    '^/create_mot$': self.create_mot,
+                    '^/text$': self.text,
+                    '^/create_text$': self.create_text,
 
                     }
             REDIRECT={"/save_user": "/welcome"}

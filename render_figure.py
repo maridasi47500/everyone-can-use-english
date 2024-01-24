@@ -33,19 +33,48 @@ class RenderFigure():
     def render_body(self):
         try:
           mystr=""
-          for j in self.body.split("<%="):
+          loc={"Fichier":Fichier,"session": self.session,"render_collection": self.render_collection,"params":self.params,"getparams": self.getparams}
+          for j in self.body.split("<%"):
+            if j[0] == "=":
+              j=j[1:]
               if "%>" not in j:
                   mystr+=j
                   continue
               k=j.split("%>")
               print("my session",self.session)
-              loc={"Fichier":Fichier,"session": self.session,"render_collection": self.render_collection,"params":self.params,"getparams": self.getparams}
-              for n in self.params:
-                  loc[n]=self.params[n]
-              print(k[0])
-              l=exec("myvalue="+k[0], globals(), loc)
-              mystr+=str(loc["myvalue"]) if loc["myvalue"] is not None else ""
-              mystr+=k[1]
+              #for n in self.params:
+              #    loc[n]=self.params[n]
+              if k[0]:
+                try:
+                  l=exec("myvalue="+k[0], globals(), loc)
+                except:
+                  print("erreur exec")
+                try:
+                  mystr+=str(loc["myvalue"]) if loc["myvalue"] is not None else ""
+                except Exception:
+                  print("erreur my value")
+              if k[1]:
+                mystr+=k[1]
+            else:
+              if "%>" not in j:
+                  mystr+=j
+                  continue
+              k=j.split("%>")
+              print("my session",self.session)
+
+              #for n in self.params:
+              #    loc[n]=self.params[n]
+              if k[0]:
+                print(k[0])
+                try:
+                  exec(k[0], globals(), loc)
+                except Exception as e:
+                  print("erreur exec",e)
+              if k[1]:
+                try:
+                  mystr+=k[1]
+                except Exception as e:
+                  print("erreur string",e)
           return mystr
         except Exception:
           mystr="erreur : "+traceback.format_exc()

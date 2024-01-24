@@ -1,0 +1,14 @@
+<form method="post" action="/update_text">
+<input type="hidden" value="<%=text['id']%>" id="champ_text_id" name="id" />
+<div class="field">
+<label for="champ_text_text">text</label>
+<input type="text" value="<%=text['text']%>" id="champ_text_text" name="text" />
+</div>
+<div class="field">
+<label for="champ_text_recording">recording</label>
+<input type="text" value="<%=text['recording']%>" id="champ_text_recording" name="recording" />
+</div>
+<div class="actions">
+<input type="submit" id="edit_text" value="modifier text" name="edit_text"/>
+</div>
+</form>
