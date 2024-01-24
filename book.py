@@ -29,8 +29,6 @@ class Book(Model):
     def getbyid(self,myid):
         self.cur.execute("select * from book where id = ?",(myid,))
         row=dict(self.cur.fetchone())
-        print(row["id"], "row id")
-        job=self.cur.fetchall()
         return row
     def create(self,params):
         print("ok")

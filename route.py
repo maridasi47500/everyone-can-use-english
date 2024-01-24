@@ -129,6 +129,7 @@ class Route():
         print("get param, action see my new",getparams)
         myparam=self.get_this_route_param(getparams,params)
         x=self.dbBook.getbyid(myparam["id"])
+        print(x,"book")
         self.render_figure.set_param("book",x)
         return self.render_figure.render_figure("book/voirlivre.html")
     def update_phraseatrou(self,search):

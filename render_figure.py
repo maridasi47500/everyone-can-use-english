@@ -42,8 +42,8 @@ class RenderFigure():
                   continue
               k=j.split("%>")
               print("my session",self.session)
-              #for n in self.params:
-              #    loc[n]=self.params[n]
+              for n in self.params:
+                  loc[n]=self.params[n]
               if k[0]:
                 try:
                   l=exec("myvalue="+k[0], globals(), loc)
@@ -62,8 +62,8 @@ class RenderFigure():
               k=j.split("%>")
               print("my session",self.session)
 
-              #for n in self.params:
-              #    loc[n]=self.params[n]
+              for n in self.params:
+                  loc[n]=self.params[n]
               if k[0]:
                 print(k[0])
                 try:
